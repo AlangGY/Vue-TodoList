@@ -13,7 +13,6 @@
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import TodoCount from './TodoCount';
-import { storageKeys, getItem, setItem } from '~/util/storage.js';
 
 
 export default {
@@ -22,15 +21,15 @@ export default {
     TodoList,
     TodoCount
   },
-  data(){
-    return {
-      todos : []
-    };
+  computed : {
+    todos(){
+      return this.$store.state.todos.todos;
+    }
   },
   watch : {
     todos : {
       handler(newTodos){
-        setItem(storageKeys.todos, newTodos);
+        this.$store.commit('todos/setTodos', newTodos);
       },
       deep : true 
     }
@@ -40,22 +39,17 @@ export default {
   },
   methods : {
     getTodos(){
-      const todos = getItem(storageKeys.todos, []);
-      this.todos = todos;
+      this.$store.commit('todos/getTodos');
     },
     addTodo(text){
-      this.todos.push({ 
-        id : Date.now() + Math.random(),
-        text,
-        isCompleted : false
-      });
+      this.$store.commit('todos/addTodo', text);
     },
     toggleTodo(id){
-      const idx = this.todos.findIndex(todo => todo.id === id);
-      this.todos[idx].isCompleted = !this.todos[idx].isCompleted;
+      this.$store.commit('todos/toggleTodo', id);
     },
     deleteTodo(id){
-      this.todos = this.todos.filter(todo => todo.id !== id);
+      console.log('delete!');
+      this.$store.commit('todos/deleteTodo', id);
     }
   }
 };

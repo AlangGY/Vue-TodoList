@@ -100,6 +100,7 @@ export default {
         margin-left: 20px;
       }
       .todo__delete--button {
+        cursor: pointer;
         position: absolute;
         display: none;
         right: 10px;
