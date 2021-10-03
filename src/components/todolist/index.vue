@@ -48,7 +48,6 @@ export default {
       this.$store.commit('todos/toggleTodo', id);
     },
     deleteTodo(id){
-      console.log('delete!');
       this.$store.commit('todos/deleteTodo', id);
     }
   }
