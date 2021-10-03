@@ -8,7 +8,6 @@
         :value="text"
         :class="{'cant':!isAddable}"
         @input="inputText">
-      <button> 등록! </button>
     </form>
   </div>
 </template>
@@ -43,14 +42,25 @@ export default {
 
 <style lang="scss" scoped>
 .todo-list__form{
+  margin-top: 30px;
+  width: 100%;
   form {
+    padding: 20px;
+    width: 100%;
     input {
-      &.cant {
-        outline: 1px solid red;
+      width: 100%;
+      height: 30px;
+      text-align: center;
+      font-size: 20px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: 0 0 3px 1px rgba(black,0.3);
+      &:focus {
+        outline: 1px solid $color-green;
       }
-    }
-    button {
-
+      &.cant:focus {
+        outline: 1px solid $color-red;
+      }
     }
   }
 }

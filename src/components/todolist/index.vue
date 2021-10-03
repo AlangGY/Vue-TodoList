@@ -60,3 +60,17 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.todo-list__inner {
+  height: 500px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-background--bright;
+  box-shadow: 0px 0px 2px 1px rgba(black,0.1);
+}
+</style>

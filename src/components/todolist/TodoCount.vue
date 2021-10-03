@@ -25,3 +25,20 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.todo-list__count {
+  padding: 10px;
+  font-size: 35px;
+  padding-bottom: 30px;
+  .count__done {
+
+  }
+  .divider {
+
+  }
+  .count__total {
+
+  }
+}
+</style>

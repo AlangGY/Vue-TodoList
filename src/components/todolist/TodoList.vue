@@ -3,14 +3,20 @@
     <ul>
       <li
         v-for="todo in todos"
-        :key="todo.id">
+        :key="todo.id"
+        :class="{'completed' : todo.isCompleted}"
+        @click="toggleTodo(todo.id)">
         <span
-          :style="{textDecoration: `${todo.isCompleted ? 'line-through' : ''}`}"
+          :alt="todo.text"
           class="todo__text">{{ todo.text }}</span>
-        <button @click="toggleTodo(todo.id)">
-          👌
-        </button>
-        <button @click="deleteTodo(todo.id)">
+        <span
+          v-if="todo.isCompleted"
+          class="todo__done--text">
+          Done!
+        </span>
+        <button
+          class="todo__delete--button"
+          @click.stop="deleteTodo(todo.id)">
           x
         </button>
       </li>
@@ -37,3 +43,78 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.todo-list__lists {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  ul {
+    padding: 10px;
+    overflow-y: scroll;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    li {
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 0 1px 1px rgba(black,.3);
+      flex-shrink: 0;
+      height: 50px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 10px;
+      overflow: hidden;
+      &.completed {
+        background-color: $color-red;
+        .todo__text {
+          text-decoration: line-through;
+        }
+        &:hover {
+          background-color: $color-green;
+        }
+      }
+      &:hover {
+        background-color: $color-red;
+        .todo__delete--button {
+          display: inline-block;
+        }
+      }
+      .todo__text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .todo__done--text {
+        position: absolute;
+        right: 60px;
+        display: inline-block;
+        font-weight: bold;
+        color: color.adjust($color-font,$lightness: 80%);
+        margin-left: 20px;
+      }
+      .todo__delete--button {
+        position: absolute;
+        display: none;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+        background-color: rgba(white,.1);
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 5px 1px rgba(black, .1);
+        &:hover {
+          background-color: rgba(white,.6);
+        }
+      }
+    }
+  }
+}
+</style>
