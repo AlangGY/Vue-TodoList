@@ -14,5 +14,6 @@ export default {
     Title,
     TodoList
   }
+  
 };
 </script>
