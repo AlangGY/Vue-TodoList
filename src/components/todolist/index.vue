@@ -1,11 +1,11 @@
 <template>
   <div class="todo-list__inner">
-    <TodoForm />
+    <TodoForm @add-todo="addTodo" />
     <TodoList
       :todos="todos"
-      @toggle-todo="toggleComplete"
+      @toggle-todo="toggleTodo"
       @delete-todo="deleteTodo" />
-    <TodoCount />
+    <TodoCount :todos="todos" />
   </div>
 </template>
 
@@ -27,6 +27,14 @@ export default {
       todos : []
     };
   },
+  watch : {
+    todos : {
+      handler(newTodos){
+        setItem(storageKeys.todos, newTodos);
+      },
+      deep : true 
+    }
+  },
   created(){
     this.getTodos();
   },
@@ -35,16 +43,14 @@ export default {
       const todos = getItem(storageKeys.todos, []);
       this.todos = todos;
     },
-    setTodos(text){
-      const todos = getItem(storageKeys.todos, []);
-      todos.push({ 
+    addTodo(text){
+      this.todos.push({ 
         id : Date.now() + Math.random(),
         text,
         isCompleted : false
       });
-      setItem(storageKeys.todos, todos );
     },
-    toggleComplete(id){
+    toggleTodo(id){
       const idx = this.todos.findIndex(todo => todo.id === id);
       this.todos[idx].isCompleted = !this.todos[idx].isCompleted;
     },
